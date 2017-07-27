@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 精简表格</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+         <!--${user.username}-->
+       <h1 th:text="${user}"></h1>
+
+<table class="table table-condensed">
+    <caption>精简表格布局</caption>
+    <thead>
+    <tr>
+        <th>名称</th>
+        <th>地址</th>
+
+    </tr>
+    <tr th:each="A:${userTS}">
+    <td th:text="${A.username}"></td>
+        <td th:text="${A.useraddress}"></td>
+
+    </tr>
+
+    </thead>
+
+</table>
+
+
+
+</body>
+</html>

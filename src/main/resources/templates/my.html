@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script language="javascript" src="jsp/jquery-1.4.2.js"></script>
+</head>
+<body>
+
+<form class="form-horizontal" role="form" action="addD"method="post">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">名字</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" onblur="checkUser(this)"  id="username" name="username"
+                   placeholder="请输入名字"><div id="mess"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="password"
+                   placeholder="密码">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label  class="col-sm-2 control-label">电话</label>
+        <input id="phone" type="text" name="phone" class="form-control"placeholder="输入领券手机号" maxlength="11">
+        <!--<button id="submit" class="disable" disabled>确认领取</button>-->
+
+        <!--<label  class="col-sm-2 control-label">电话</label>
+
+            <input type="text" class="form-control" name="phone"
+                   placeholder="电话">-->
+        </div>
+    </div>
+
+    <!-- <div class="box">
+    <input id="phone" type="text" placeholder="输入领券手机号" maxlength="11">
+    <button id="submit" class="disable" disabled>确认领取</button>
+  </div>
+-->
+
+    <div class="form-group">
+        <label  class="col-sm-2 control-label">用户地址</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="useraddress"
+                   placeholder="用户地址">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">注册</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    function checkUser(o){
+
+        var username = $(o).val();
+        if(username.trim()==""){
+            $("#mess").html("<font color='red'>登录名不能为空</font>");
+            $(o).val("");
+            $(o)[0].focus();
+            return;
+
+        }
+        $.post("select2",{"username":username},function(data){
+
+            if(data=="1"){
+                $("#mess").html("<font color='red'>登录名已经存在</font>");
+              /*  $(o)[0].focus();*/
+            }else{
+                $("#mess").html("<font color='green'>登录名可以使用</font>");
+              /*  $(o)[0].focus();*/
+
+            }
+
+
+        },"json");
+
+    }
+</script>
+
+
+<script>
+    $(function () {
+        var $phone = $('#phone');
+        var $submit = $('#submit');
+        $phone.on('input propertychange', function () {
+            var phone = this.value;
+            if (/^((13[0-9]|15[0-9]|17[0-9]|18[0-9])+\d{8})$/.test(phone)) {
+                $submit.removeClass('disable').addClass('submit').removeAttr('disabled');
+            } else {
+                $submit.removeClass('submit').addClass('disable').attr('disabled', 'disabled');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
